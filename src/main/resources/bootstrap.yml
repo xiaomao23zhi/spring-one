@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: spring-one
+
+  cloud:
+    nacos:
+      config:
+        server-addr: ${NACOS_SERVER:localhost:8848}
+        group: ${NACOS_GROUP:DEFAULT_GROUP}
+        file-extension: yaml
+      discovery:
+        server-addr: ${NACOS_SERVER:localhost:8848}

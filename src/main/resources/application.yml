@@ -1,0 +1,19 @@
+server:
+  port: 8080
+
+logging:
+  level:
+    root: INFO
+
+management:
+  server:
+    port: 8081
+  endpoint:
+    health:
+      enabled: true
+    startup:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: health,startup
