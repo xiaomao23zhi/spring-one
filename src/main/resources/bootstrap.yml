@@ -5,8 +5,8 @@ spring:
   cloud:
     nacos:
       config:
-        server-addr: ${NACOS_SERVER:localhost:8848}
+        server-addr: ${NACOS_CONFIG_SERVER:localhost:8848}
         group: ${NACOS_GROUP:DEFAULT_GROUP}
         file-extension: yaml
       discovery:
-        server-addr: ${NACOS_SERVER:localhost:8848}
+        server-addr: ${NACOS_DISCOVERY_SERVER:localhost:8848}
