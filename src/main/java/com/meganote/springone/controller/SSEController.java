@@ -3,6 +3,8 @@ package com.meganote.springone.controller;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
+import com.meganote.springone.service.SSEService;
+
 import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalTime;
@@ -15,6 +17,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 @RestController
 @Slf4j
 public class SSEController {
+
+    private final SSEService sseService;
+
+    public SSEController(SSEService sseService) {
+        this.sseService = sseService;
+    }
 
     @PostMapping(value = "/sse", produces = { MediaType.TEXT_EVENT_STREAM_VALUE })
     public SseEmitter sse() {
@@ -39,6 +47,7 @@ public class SSEController {
                 } catch (Exception exception) {
                     log.error(exception.getMessage());
                     emitter.completeWithError(exception);
+                    break;
                 }
             }
 
@@ -46,6 +55,14 @@ public class SSEController {
         });
 
         return emitter;
+    }
+
+    @PostMapping(value = "chat", produces = { MediaType.TEXT_EVENT_STREAM_VALUE })
+    public SseEmitter chat() {
+
+        SseEmitter emitter = new SseEmitter(0L);
+
+        return sseService.forward(emitter);
     }
 
 }
