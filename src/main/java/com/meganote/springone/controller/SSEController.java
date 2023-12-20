@@ -1,18 +1,17 @@
 package com.meganote.springone.controller;
 
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
-
-import com.meganote.springone.service.SSEService;
-
-import lombok.extern.slf4j.Slf4j;
-
 import java.time.LocalTime;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
+
+import com.meganote.springone.service.SSEService;
+
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @Slf4j
