@@ -14,5 +14,5 @@ import com.meganote.springone.model.dto.CompletionsDTO;
 public interface SchedulerClient {
 
     @PostMapping(value = "/scheduler/completions", produces = { MediaType.TEXT_EVENT_STREAM_VALUE })
-    SseEmitter completions(@RequestBody CompletionsDTO CompletionsDTO);
+    SseEmitter completions(@RequestBody CompletionsDTO completionsDTO);
 }

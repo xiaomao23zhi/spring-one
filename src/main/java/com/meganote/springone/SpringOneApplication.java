@@ -13,7 +13,7 @@ public class SpringOneApplication {
 
 	public static void main(String[] args) {
 		SpringApplication application = new SpringApplication(SpringOneApplication.class);
-		application.setApplicationStartup(new BufferingApplicationStartup(2048));
+		application.setApplicationStartup(new BufferingApplicationStartup(256));
 		application.run(args);
 	}
 }

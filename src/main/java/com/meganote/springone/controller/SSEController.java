@@ -4,9 +4,11 @@ import java.time.LocalTime;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import com.meganote.springone.service.SSEService;
@@ -33,6 +35,8 @@ public class SSEController {
 
         executor.execute(() -> {
 
+            // Exception error;
+
             for (int i = 0; i < 15; i++) {
 
                 SseEmitter.SseEventBuilder event = SseEmitter.event()
@@ -42,16 +46,30 @@ public class SSEController {
 
                 try {
                     emitter.send(event);
+                    if (i == 10) {
+                        emitter.completeWithError(new ResponseStatusException(HttpStatus.BAD_REQUEST));
+                        // error = new ResponseStatusException(HttpStatus.BAD_REQUEST);
+                        break;
+                    }
                     Thread.sleep(1000);
                 } catch (Exception exception) {
                     log.error(exception.getMessage());
                     emitter.completeWithError(exception);
+                    // error = exception;
                     break;
                 }
             }
 
             emitter.complete();
+
         });
+
+        // if (error != null) {
+        // emitter.completeWithError(error);
+        // } else {
+
+        // emitter.complete();
+        // }
 
         return emitter;
     }

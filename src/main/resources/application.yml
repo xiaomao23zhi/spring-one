@@ -4,11 +4,12 @@ server:
 
 spring:
   lifecycle:
-    timeout-per-shutdown-phase: 30s
+    timeout-per-shutdown-phase: 5m
 
 logging:
   level:
     root: INFO
+    org.springframework.web: DEBUG
 
 management:
   server:
@@ -21,4 +22,4 @@ management:
   endpoints:
     web:
       exposure:
-        include: health,startup
+        include: health,startup,deregister

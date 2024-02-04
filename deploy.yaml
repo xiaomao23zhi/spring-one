@@ -55,6 +55,13 @@ spec:
             - name: admin
               containerPort: 8081
               protocol: TCP
+          env:
+            - name: NACOS_CONFIG_GROUPID
+              value: DEFAULT_GROUP
+            - name: NACOS_CONFIG_SERVER
+              value: nacos-headless.default.svc:8848
+            - name: NACOS_DISCOVERY_SERVER
+              value: nacos-headless.default.svc:8848
           livenessProbe:
             httpGet:
               path: "/actuator/health/liveness"
@@ -79,13 +86,11 @@ spec:
             failureThreshold: 30
             periodSeconds: 10
             timeoutSeconds: 5
-          env:
-            - name: NACOS_CONFIG_GROUPID
-              value: DEFAULT_GROUP
-            - name: NACOS_CONFIG_SERVER
-              value: nacos-headless.default.svc:8848
-            - name: NACOS_DISCOVERY_SERVER
-              value: nacos-headless.default.svc:8848
+          lifecycle:
+            preStop:
+              httpGet:
+                path: /actuator/deregister
+                port: admin
 ---
 apiVersion: v1
 kind: Service
